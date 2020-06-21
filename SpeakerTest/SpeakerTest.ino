@@ -1,25 +1,28 @@
-const int sensor = 4;
-const int buzzer = 3;
-const int soundTime = 1000;
-const int offTime = 1000;
-const int loopDelay = 200;
-int state;
-float duration = 0;
+const int sensor = 4; //sensor pin
+const int buzzer = 3; //speaker pin
+const int soundTime = 1000; //length of sound in ms
+const int offTime = 1000; //length of silence in ms
+const int loopDelay = 200; 
+int state; //circuit status ON/OFF
+float duration = 0; //base value
 float beepTrigger = 0.1; //in minutes
 
+//bing bong ding dong
+
+// MAKE SURE DTR is connected properly
 
 void setup() 
 {
   // put your setup code here, to run once:
     pinMode(sensor, INPUT);
-//    Serial.begin(9600);
-    beepTrigger = beepTrigger * 60000; //converts beeptrigger to ms
+    Serial.begin(9600);
+    beepTrigger = beepTrigger * 60000; //converts beepTrigger to ms
 }
 
 void loop() 
 {
-    state = digitalRead(sensor);
-//    Serial.println(state);
+    state = digitalRead(sensor); //checks status of sensor
+    Serial.println(state); //prints status in serial monitor
     
 
     if (state == LOW) { //LOW means door is open
@@ -29,22 +32,22 @@ void loop()
       else{
         duration = duration + loopDelay;  
       }
-//      Serial.print("duration = ");
-//      Serial.println(duration);  
-//      Serial.println("Door open");
+      Serial.print("duration = ");
+      Serial.println(duration);  
+      Serial.println("Door open");
     }
     else{
       noTone(buzzer);
-//      Serial.println("Door close");
+      Serial.println("Door close");
       duration = 0;
     }
 
     if (duration >= beepTrigger){
       tone(buzzer, 400);
-      digitalWrite(5, HIGH);  
+//      digitalWrite(5, HIGH);  
       delay(soundTime);
       noTone(buzzer);
-      digitalWrite(5, LOW);
+//      digitalWrite(5, LOW);
       delay(offTime);  
     }  
 
@@ -52,4 +55,3 @@ void loop()
     
     delay(loopDelay);
 }
-
