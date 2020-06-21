@@ -1,3 +1,4 @@
+const int light = 5; //indicator LED pin
 const int sensor = 4; //sensor pin
 const int buzzer = 3; //speaker pin
 const int soundTime = 1000; //length of sound in ms
@@ -44,10 +45,10 @@ void loop()
 
     if (duration >= beepTrigger){
       tone(buzzer, 400);
-//      digitalWrite(5, HIGH);  
+      digitalWrite(light, HIGH);  
       delay(soundTime);
       noTone(buzzer);
-//      digitalWrite(5, LOW);
+      digitalWrite(light, LOW);
       delay(offTime);  
     }  
 
