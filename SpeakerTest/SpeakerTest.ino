@@ -26,7 +26,7 @@ void loop()
     Serial.println(state); //prints status in serial monitor
     
 
-    if (state == LOW) { //LOW means door is open
+    if (state == HIGH) { //HIGH means door is open
       if (duration >= beepTrigger){
         duration = beepTrigger;  
       }
